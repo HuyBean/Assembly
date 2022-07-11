@@ -1,0 +1,62 @@
+.model tiny
+.stack 100h
+.data
+st1 db 'Nhap so: $'
+st2 db 13,10,'Binary: $'
+so dw 0
+.code
+main proc
+    mov ax,@data
+    mov ds,ax
+    lea dx,st1
+    mov ah,9
+    int 21h ;In xau st1
+nhap:
+    mov ah,1
+    int 21h
+    cmp al,13
+    je nhiphan
+    sub al,30h
+    mov ah,0
+    mov cx,ax
+    mov bx,10
+    mov ax,so
+    mul bx
+    add ax,cx
+    mov so,ax
+    jmp nhap
+nhiphan:
+    lea dx,st2
+    mov ah,9
+    int 21h
+    mov cx,0
+    mov bx,2
+    mov ax,so
+chia:
+    mov dx,0
+    div bx
+    add dx,30h
+    push dx
+    inc cx
+    cmp ax,0
+    je inso
+    jmp chia
+inso:
+    pop dx
+    mov ah,2
+    int 21h
+    loop inso
+ra:
+    mov ah,4ch
+    int 21h
+main endp
+end main
+
+batdau:
+    mov al, 0h
+    cmp al, n
+    jae thoat
+    inc al
+    ;code .....
+    jmp batdau
+thoat:

@@ -70,7 +70,7 @@ chia:
     xor dx,dx ;xoa bit cao trong dx
     jmp chia
 hienkq: 
-;He thong se pop va in ra man hinh den khi ngan xep khong con phan tu nao
+;He thong se pop va in ra man hinh den khi so vong lap bang cx
     pop dx ;lây du trong ngăn xêp ra khoi dx
     add dl,30h ;chuyên sô thành dang ký tu
     mov ah,2 ;in tông

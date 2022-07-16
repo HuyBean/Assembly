@@ -10,26 +10,30 @@ main proc
     mov ax, @data
     mov ds, ax
 
-    mov ah, 9h; input
-    mov dx, offset message
-    int 21h
+    ; mov ah, 9h; input
+    ; mov dx, offset message
+    ; int 21h
 
-    mov ah, 1h; input number
-    int 21h
+    ; mov ah, 1h; input number
+    ; int 21h
 
-    ;mov dl, al
-    mov var, al
-    sub var, 30h
+    ; ;mov dl, al
+    ; mov var, al
+    ; sub var, 30h
 
 
-    mov ah, 9h; output
-    mov dx, offset outmess
-    int 21h
+    ; mov ah, 9h; output
+    ; mov dx, offset outmess
+    ; int 21h
 
-    mov dl, var
-    add dl, 30h 
-    mov ah, 2h; output number
-    int 21h
+    ; mov dl, var
+    ; add dl, 30h 
+    ; mov ah, 2h; output number
+    ; int 21h
+    mov cl, 41h
+    mov ah, 6
+	mov dl, cl
+	int 21h   
 
     mov ah, 4Ch
     int 21h

@@ -12,8 +12,8 @@
     MessSub db 10,13,'H - M = $';Chuỗi hiển thị phép tính hiệu của giờ và phút hệ thống
     MessMod db 10,13,'H % M = $';Chuỗi hiển thị phép tính chia lấy dư của giờ chia cho phút hệ thống
     MessNegative db '-$';Hiển thị dấu - trong trường hợp hiệu giữa giờ và phút hệ thống là số âm 
-    MinVar db 0;Biến để chứa giá trị của phút hệ thống
-    HourVar db 0;Biến để chứa giá trị của giờ hệ thống
+    MinVar db ?;Biến để chứa giá trị của phút hệ thống
+    HourVar db ?;Biến để chứa giá trị của giờ hệ thống
     TempVar db 0;Biến đếm tạm sử dụng trong việc tính toán chương trình
 .CODE
 main proc 

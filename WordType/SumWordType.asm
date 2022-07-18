@@ -13,6 +13,7 @@ main proc
     mov ds,ax
     ;in thong bao nhap so thu nhat
     lea dx,tb1
+    ;mov dx, offset tb1
     mov ah,9
     int 21h
 nhap1:

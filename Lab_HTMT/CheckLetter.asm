@@ -60,152 +60,156 @@ Tiep:
     mov dx, offset MessPrime;In ra dòng báo các số nguyên tố trong mảng
     int 21h
 Kiemtrasnt:
-    cmp cx, 1
-    jb Tiep_tuc1
-    dec cx
-    mov dl, Mang[di]
-    inc di
-    mov var, dl
-    call CheckSNT
+    cmp cx, 1;So sánh biến đếm cx với 1
+    jb Tiep_tuc1;Nếu nhỏ hơn 1 thì đã kiểm tra xong, nhảy đến nhãn Tiep_tuc1
+    dec cx;Nếu chưa xong thi giảm tiếp cx 
+    mov dl, Mang[di];gán dl = giá trị phần tử thứ di trong mảng
+    inc di;tăng vị trí di
+    mov var, dl; gán biến var có giá trị dl là giá trị phần tử thứ di vừa rồi trong mảng
+    call CheckSNT;Gọi hàm kiểm tra ký tự đó có phải snt hay ko 
 Tiep_tuc1:
-    mov cx, 10
-    mov di, 0
+    mov cx, 10;Gán lại giá trị biến đếm cx = 10 
+    mov di, 0; Gán lại giá trị biến chỉ số di bắt đầu từ 0
 
     mov ah,9
     mov dx, offset MessSquare;In ra dòng báo các số chính phương trong mảng
     int 21h
 KiemtraSCP:
-    cmp cx, 1
+    cmp cx, 1;So sánh biến đếm cx với 1
     jb Tiep_tuc2
     dec cx
     mov dl, Mang[di]
     inc di
     mov var, dl
-    call CheckSquare
+    call CheckSquare;Gọi hàm kiểm tra ký tự có mã là số chính phương
 Tiep_tuc2:
-    mov cx, 10
-    mov di, 0
+    mov cx, 10;Gán lại giá trị biến đếm cx = 10 
+    mov di, 0; Gán lại giá trị biến chỉ số di bắt đầu từ 0
 
     mov ah,9
     mov dx, offset MessEvenLetters;In ra dòng báo các số có mã chứa toàn số chẵn trong mảng
     int 21h
 KiemtraChan:
-    cmp cx, 1
+    cmp cx, 1;So sánh biến đếm cx với 1
     jb Tiep_tuc3
     dec cx
     mov dl, Mang[di]
     inc di
     mov var, dl
-    call CheckEven
+    call CheckEven;Gọi hàm kiểm tra ký tự có mã toàn số chẵn
 Tiep_tuc3:
-    mov cx, 10
-    mov di, 0
+    mov cx, 10;Gán lại giá trị biến đếm cx = 10 
+    mov di, 0; Gán lại giá trị biến chỉ số di bắt đầu từ 0
 
     mov ah,9
     mov dx, offset MessOddLetters;In ra dòng báo các số có mã chứa toàn số lẻ trong mảng
     int 21h
 KiemtraLe:
-    cmp cx, 1
+    cmp cx, 1;So sánh biến đếm cx với 1
     jb Xong
     dec cx
     mov dl, Mang[di]
     inc di
     mov var, dl
-    call CheckOdd
+    call CheckOdd;Gọi hàm kiểm tra ký tự có mã toàn số lẻ
 Xong:
-    mov ah, 4ch
+    mov ah, 4ch;Trả về và kết thúc chương trình
     int 21h
 main endp
+;Hàm kiểm tra ký tự có mã là số nguyên tố
 CheckSNT proc
-    mov tmp, dl
-    cmp tmp,2
-    je IsPrime
-    sub var, 2
-    mov divvar, 2
+    mov tmp, dl; Gán biến tạm có giá trị của ký tự
+    cmp tmp,2; Nếu biến tạm = 2 nghĩa là số nguyên tố
+    je IsPrime; jump đến nhãn đúng
+    sub var, 2;Đặt giới hạn cho vòng lặp để kiểm tra số nguyên tố, ở đây là đến n - 2
+    mov divvar, 2; Đặt biến chia bằng 2
 ChiaSNT:
-    mov ax, 0
-    mov al, dl
-    div divvar
-    inc divvar
-    cmp ah, 0
-    je HetSnt
-    dec var
-    cmp var, 0
-    jne ChiaSNT
-    jmp IsPrime
-IsPrime:
+    mov ax, 0; Dòng này để xóa hết các bit trong ax
+    mov al, dl; Và gán al = dl nghĩa là cho ax = dl 
+    div divvar; Tiến hành lấy ax/ divvar, số dư lưu vào ah, thương lưu vào al
+    inc divvar; Tăng biến chia 
+    cmp ah, 0;so sánh ah, nếu ah = 0 nghĩa là phép chia hết
+    je HetSnt;phép chia hết sẽ không cho ra số nguyên tố nên jump đến nhãn HetSnt
+    dec var; giảm dần n
+    cmp var, 0; Nếu n = 0 nghĩa là vòng lặp đã hết
+    jne ChiaSNT;Nếu còn vòng lặp thì jump lên nhãn ChiaSnt
+    jmp IsPrime;Nếu hết vòng lặp không tìm được số chia hết thì nó là Số nguyên tố
+IsPrime:;Label in ra ký tự cân tìm theo yêu cầu
     mov ah, 2h
-    mov dl, tmp
+    mov dl, tmp; Gán dl = biến tạm vì biến var đã bị thay đổi nhưng biến tạm vẫn còn
     int 21h
-    mov dl, ' '
+    mov dl, ' ';In dấu cách giữa các ký tự 
     int 21h
 HetSnt:
-    jmp Kiemtrasnt
+    jmp Kiemtrasnt;Nếu đã kiểm tra xong thì jump lại hàm để kiểm tra ký tự tiếp theo
 CheckSNT endp
+;Hàm kiểm tra  ký tự có mã là số chính phương
 CheckSquare proc 
-    mov tmp, dl
+    mov tmp, dl;Gán biến tạm là giá trị của ký tự 
 Square:
-    mov ax, 0 
-    mov al, tmpindex
-    mul al
-    mov ah, 0
-    cmp al, var
-    ja HetCP
-    cmp al, var
-    je IsSquare
-    inc tmpindex
+    mov ax, 0; Xóa bit trong ax
+    mov al, tmpindex; Cho ax = tmpindex bằng cách gán al = tmpindex ( vì ah đã bị xóa)
+    mul al;lấy ax = al * al ( trong c++ nghĩa là i*i)
+    mov ah, 0;Xóa ah => giá trị đẩy về al
+    cmp al, var; So sánh al với biến var lúc đầu 
+    ja HetCP; Nếu lớn hơn thì nó không phải số chính phương
+    cmp al, var; So sánh al với var
+    je IsSquare; Nếu bằng thì nó là số chính phương
+    inc tmpindex; Còn lại nếu al < var thì tăng biến đếm tạm và jmp lại nhãn Square
     jmp Square
-IsSquare:
+IsSquare:;Label in ra ký tự cân tìm theo yêu cầu
     mov ah, 2h
-    mov dl, tmp
+    mov dl, tmp; Gán dl = biến tạm vì biến var đã bị thay đổi nhưng biến tạm vẫn còn
     int 21h
-    mov dl, ' '
+    mov dl, ' ';In dấu cách giữa các ký tự 
     int 21h
 HetCP:
-    jmp KiemtraSCP
+    jmp KiemtraSCP;Nếu đã kiểm tra xong thì jump lại hàm để kiểm tra ký tự tiếp theo
 CheckSquare endp
+;Hàm kiểm tra ký tự có mã toàn chữ số chẵn
 CheckEven proc 
-    mov tmp, dl
-    mov divvar, 10
+    mov tmp, dl; Gán biến tạm = giá trị của ký tự
+    mov divvar, 10; Cho biến chia = 10
 ChiaEven:
-    cmp var, 0
-    jbe IsEven
-    mov ax, 0
-    mov al, var
-    div divvar
-    mov var, al
-    test ah, 1
-    jnz HetChan
-    jmp ChiaEven
-IsEven:
+    cmp var, 0; so sánh var với 0 (như vòng while)
+    jbe IsEven;Nếu <= 0 nghĩa là hết vòng lặp và nó sẽ là ký tự cần tìm, jmp đến nhãn đúng
+    mov ax, 0; Xóa bit trong ax
+    mov al, var; Gán ax = var bằng cách cho al = var (vì ah = 0)
+    div divvar ;Lấy ax/10 ( al = thương, ah = số dư)
+    mov var, al ; Gán thương cho var (nói cách khác var = var/10)
+    test ah, 1 ;Kiểm tra số dư là chẵn hay lẻ
+    jnz HetChan ;Nếu zero flag không xuất hiện nghĩa là số lẻ, jmp đến nhãn HetChan
+    jmp ChiaEven ; Nếu zero flag xuất hiện thì số chẵn, vẫn hợp lệ và tiếp tục vòng while
+IsEven:;Label in ra ký tự cân tìm theo yêu cầu
     mov ah, 2h
-    mov dl, tmp
+    mov dl, tmp; Gán dl = biến tạm vì biến var đã bị thay đổi nhưng biến tạm vẫn còn
     int 21h
-    mov dl, ' '
+    mov dl, ' ';In dấu cách giữa các ký tự 
     int 21h
 HetChan:
-    jmp KiemtraChan
+    jmp KiemtraChan;Nếu đã kiểm tra xong thì jump lại hàm để kiểm tra ký tự tiếp theo
 CheckEven endp
+;Hàm kiểm tra ký tự có mã toàn chữ số lẻ
 CheckOdd proc
-    mov tmp, dl
-    mov divvar, 10
+    mov tmp, dl; Gán biến tạm = giá trị của ký tự
+    mov divvar, 10; Cho biến chia = 10
 ChiaOdd:
-    cmp var, 0
-    jbe IsOdd
-    mov ax, 0
-    mov al, var
-    div divvar
-    test ah, 1
-    jz HetLe
-    mov var, al
-    jmp ChiaOdd
-IsOdd:
+    cmp var, 0; so sánh var với 0 (như vòng while)
+    jbe IsOdd;Nếu <= 0 nghĩa là hết vòng lặp và nó sẽ là ký tự cần tìm, jmp đến nhãn đúng
+    mov ax, 0;Xóa bit trong ax
+    mov al, var; Gán ax = var bằng cách cho al = var (vì ah = 0)
+    div divvar ;Lấy ax/10 ( al = thương, ah = số dư)
+    test ah, 1 ;Kiểm tra số dư là chẵn hay lẻ
+    jz HetLe ;Nếu zero flag xuất hiện nghĩa là số chẵn, jmp đến nhãn HetLe
+    mov var, al ; Gán thương cho var (nói cách khác var = var/10)
+    jmp ChiaOdd; Nếu zero flag xuất hiện thì số chẵn, vẫn hợp lệ và tiếp tục vòng while
+IsOdd:;Label in ra ký tự cân tìm theo yêu cầu
     mov ah, 2h
-    mov dl, tmp
+    mov dl, tmp; Gán dl = biến tạm vì biến var đã bị thay đổi nhưng biến tạm vẫn còn
     int 21h
-    mov dl, ' '
+    mov dl, ' ';In dấu cách giữa các ký tự 
     int 21h
 HetLe:
-    jmp KiemtraLe
+    jmp KiemtraLe;Nếu đã kiểm tra xong thì jump lại hàm để kiểm tra ký tự tiếp theo
 CheckOdd endp
 end main

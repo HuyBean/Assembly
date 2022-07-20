@@ -114,13 +114,6 @@ Tieptuc:
       
       cmp al, 1
       je tieptuc1
-      ;số dư của phép chia 10
-      ;số dư đó chia dư 2
-      ;ax = al + ah
-      ; al = ax/operand
-      ; ah = remainder
-      ;ax=ch
-      ;ah = remainder
       NEXT:
             mov  bl, 1
             test CH, bl
@@ -130,13 +123,19 @@ Tieptuc:
 DONE: 
       mov ah, 4ch
       int 21h
+tieptuc1:
+      jmp printHello
 isEven:
+      mov cx, 0
+      mov cl, H
+Laplai:
       mov dx, offset hello
       mov ah, 9
       int 21h
-      jmp DONE
-tieptuc1:
-      jmp printHello
+      dec cx
+      cmp cx, 0
+      je DONE
+      jmp Laplai
 isOdd:
       ;In ra phép cộng  
       mov dx, offset sumCal
@@ -199,6 +198,7 @@ isOdd:
       ;In ra phép DIV
       
       jmp DONE
+
 LonHon:
       mov m_temp, ch
       sub m_temp, cl

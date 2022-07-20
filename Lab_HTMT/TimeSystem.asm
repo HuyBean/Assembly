@@ -103,7 +103,7 @@ Minute endp
 Hien_Thi_So_Phut PROC
 chiaPhut: 
     div bx ;lấy kết quả trong ax chi cho 10
-    push dx ;kết quả dư của phép chia đẩy vào ngăn xếp dx
+    push dx ;kết quả ư của phép chia đẩy vào ngăn xếp dx
     inc cx ;tăng biến đếm
     cmp ax,0 ;so sánh kết quả phép chia với 0
     je hienkqPhut ;nếu bằng thì dừng và nhảy đến bước in phút

@@ -1,7 +1,6 @@
 
 .model small
-.stack 100h
- 
+.stack 100h 
 .data
       hello_morning db 10, 13, 'Good morning$'
       hello_afternoon db 10, 13, 'Good afternoon$'

@@ -3,30 +3,30 @@
 .stack 100h
  
 .data
-hello_morning db 10, 13, 'Good morning$'
-hello_afternoon db 10, 13, 'Good afternoon$'
-hello_evening db 10, 13, 'Good evening$'
-hello db 10, 13, 'Assembly language$'
-odd db 10, 13, 'It is odd$'
-sumCal db 10, 13, 'H + M = $'
-minusCal db 10,13, 'H - M = $'
-divCal db 10, 13, 'H % M = $'
-hour db ?  ;
-mins db ?  ; 
-hour1 db ? ;
-hour2 db ? ;initialize variables
-min1 db ?  ;
-min2 db ?
-H db ?
-M db ?
-h_temp db ?
-h_temp1 db ?
-h_temp2 db ?
-m_temp db ?
-m_temp1 db ?
-m_temp2 db ?
-result db ?
-temp db ?
+      hello_morning db 10, 13, 'Good morning$'
+      hello_afternoon db 10, 13, 'Good afternoon$'
+      hello_evening db 10, 13, 'Good evening$'
+      hello db 10, 13, 'Assembly language$'
+      odd db 10, 13, 'It is odd$'
+      sumCal db 10, 13, 'H + M = $'
+      minusCal db 10,13, 'H - M = $'
+      divCal db 10, 13, 'H % M = $'
+      hour db ?  ;
+      mins db ?  ; 
+      hour1 db ? ;
+      hour2 db ? ;initialize variables
+      min1 db ?  ;
+      min2 db ?
+      H db ?
+      M db ?
+      h_temp db ?
+      h_temp1 db ?
+      h_temp2 db ?
+      m_temp db ?
+      m_temp1 db ?
+      m_temp2 db ?
+      result db ?
+      temp db ?
 .code
 check_capslock proc
       mov ah, 2

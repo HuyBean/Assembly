@@ -27,7 +27,6 @@ m_temp1 db ?
 m_temp2 db ?
 result db ?
 temp db ?
- 
 .code
 check_capslock proc
       mov ah, 2
